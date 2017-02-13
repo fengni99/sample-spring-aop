@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc 	
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        
+        <bean id="helloWorldAImpl" class="com.discovery.darchrow.service.HelloWorldAImpl"/>
+        <bean id="helloWorldBImpl" class="com.discovery.darchrow.service.HelloWorldBImpl"/>
+        <bean id="timeHandler" class="com.discovery.darchrow.TimeHandler"/>
+        
+        <aop:config>
+        	<aop:aspect id="time" ref="timeHandler">
+        		<aop:pointcut expression="execution(* com.discovery.darchrow.service.HelloWorld.*(..))" id="addAllMethod"/>
+        		<aop:before method="printTime" pointcut-ref="addAllMethod"/>
+        		<aop:after method="printTime" pointcut-ref="addAllMethod"/>
+        	</aop:aspect>
+        </aop:config>
+
+</beans>
